@@ -1,0 +1,21 @@
+{
+  "name": "gustperz/s3-untitledApi-K.v0.1",
+  "description": "description_text",
+  "require": {
+    "slim/slim": "^3.1",
+    "lcobucci/jwt": "^3.1",
+    "tuupola/slim-jwt-auth": "^2.0",
+    "vlucas/phpdotenv": "^2.2",
+    "itbz/fpdf": "^1.7",
+    "vlucas/spot2": "^2.1",
+    "monolog/monolog": "^1.17"
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\Resources\\": "src/Resources",
+      "App\\Entities\\": "src/Entities",
+      "App\\Auth\\": "src/Auth",
+      "App\\Lib\\": "src/lib/"
+    }
+  }
+}

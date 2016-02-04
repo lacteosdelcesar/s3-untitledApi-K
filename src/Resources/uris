@@ -1,0 +1,13 @@
+GET/empleados
+GET/empleados/:e_id
+GET/empleados/syncup
+
+GET/empleados/:e_id/solicitudes_pqr
+GET/empleados/:e_id/solicitudes_pqr/:pqr_id
+POST/empleados/:e_id/solicitudes_pqr
+POST/empleados/:e_id/solicitudes_pqr/:pqr_id/respuesta
+
+GET/solicitudes_pqr
+
+GET/certificado_laboral/:crt_id
+GET/empleados/:e_id/certificado_laboral
