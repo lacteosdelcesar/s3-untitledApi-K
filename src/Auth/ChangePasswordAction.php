@@ -19,7 +19,7 @@ class ChangePasswordAction extends Action
         $user = $mapper->checkUser($data->id_user, $data->username);
         if ($user) {
             $user = $mapper->get($data->id_user);
-            $user->contrasena = $data->new_password;
+            $user->contrasena =  password_hash($data->new_password, PASSWORD_BCRYPT);
             $mapper->update($user);
             return $this->responseInfo = ['body' => ['body' => 'contraseña actualizada'],'status' => self::STATUS_OK];
         } else {

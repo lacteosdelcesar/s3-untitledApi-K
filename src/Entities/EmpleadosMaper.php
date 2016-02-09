@@ -15,6 +15,7 @@ class EmpleadosMaper
         	$empleado = new Empleado($data[$i]);
             $entities[] = $empleado; 
         }
+            //array_push($entities, new Empleado($data));
         return $entities;
     }
 }

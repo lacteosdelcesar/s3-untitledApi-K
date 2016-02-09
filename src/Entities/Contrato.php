@@ -84,9 +84,8 @@ class Contrato extends Entity
         $sql = 'select * from( 
                 SELECT LAPSO_DOC, SUM(NMMOV_VALOR) as valor FROM NMRESUMEN_PAGOS_NOMINA 
                 WHERE ID_TERC='.$this->data['cedula_empleado'].' AND ID_IND_DEV_DED = 1 AND ID_TIPO_DOC = \'NQ\' 
-                GROUP BY LAPSO_DOC 
-                )where rownum <= 3
-                order by LAPSO_DOC desc';
+                AND  ID_CPTO != 673 GROUP BY LAPSO_DOC ORDER BY LAPSO_DOC DESC 
+                )where rownum <= 3';
         $result = OracleEntityManager::runQuery($sql)->fetchAll();
         $sum = 0;
         for($i=0; $i<count($result); $i++){

@@ -32,6 +32,19 @@ class Empleado extends \App\Entities\Entity
         ]
     ];
 
+    public static function all($fields='')
+    {
+        $fields = $fields ? $fields : implode(", ", array_keys(static::$fields));
+        $sql = 'SELECT '.$fields.' FROM '.$this->data.' WHERE IND_EMPL = 1';
+        $result = OracleEntityManager::runQuery($sql);
+        $entities = [];
+        $data = $result->fetchAll();
+        for ($i=0; $i < count($data) ; $i++) {
+            $entities[] = new Empleado($data[$i]); 
+        }
+        return $entities;
+    }
+
     public function getContrato()
     {
         if($this->relations['contrato']['object'] == null) {

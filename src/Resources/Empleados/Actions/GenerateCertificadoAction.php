@@ -8,6 +8,7 @@ use App\Lib\Orm\MySQLEntityManager;
 use App\Lib\Orm\OracleEntityManager;
 use App\Lib\Responders\PdfResponder;
 use fpdf\FPDF;
+//use fpdf\FPDF_Protection;
 
 class GenerateCertificadoAction extends Action
 {
@@ -67,14 +68,16 @@ class GenerateCertificadoAction extends Action
         //echo print_r($empleado);
         //$empleado = new Empleado();
         $pdf = new FPDF('P', 'cm', 'Letter');
+        //$pdf = new FPDF_Protection();
+        //$pdf->SetProtection(array('print'));
         $pdf->AddPage();
         $pdf->SetMargins(3, 3, 2);
         $pdf->SetAutoPageBreak(true, 1);
         $pdf->SetLineWidth(1.5);
         $pdf->SetFont('Arial');
         $pdf->Image(realpath(__DIR__.'/../../../../assets/images/logo.png'), 14, 0.3, 5, 'PNG');
-        $pdf->SetFont('Arial', '', 8);
-        $pdf->Cell(0, 6, $certificado->id, 0, 2, 'R');
+        $pdf->SetFont('Arial', '', 6);
+        $pdf->Cell(17.5, 6, $certificado->id, 0, 2, 'R');
         $pdf->SetFont('Arial', '', 12);
         $pdf->Ln(0);
         $pdf->Cell(0, 0, 'Valledupar, ' . $this->formatFecha($certificado->fecha) , 0, 2, 'L');
@@ -115,9 +118,10 @@ class GenerateCertificadoAction extends Action
         $pdf->Ln(2);
         $pdf->Cell(0, 0, utf8_decode('Esta certificación se expide a solicitud del interesado.'), 0, 2);
         $pdf->Ln(5);
+        $pdf->Image(realpath(__DIR__.'/../../../../assets/images/Firma.png'), 8, 19, 7, 'PNG');
         $pdf->SetFont('Arial', 'B');
         $pdf->Cell(0, 0, 'MAYRA ALEJANDRA CARO DAZA', 0, 2, 'C');
-        $pdf->Ln(1);
+        $pdf->Ln(0.5);
         $pdf->SetFont('Arial');
         $pdf->Cell(0, 0, 'Jefe de Talento Humano', 0, 2, 'C');
         $pdf->Image(realpath(__DIR__.'/../../../../assets/images/Pie.JPG'), 1, 25.5, 19, 'JPG');
@@ -136,7 +140,7 @@ class GenerateCertificadoAction extends Action
             $dia = substr($fecha, 6, 2);
             return $dia . " de " . $meses[(int)$mes] . " de " . $año;
         } else {
-            throw new \Exception("Error n la generacion del certificado, fecha no valida");
+            throw new \Exception("Error en la generacion del certificado, fecha no valida");
         }
     }
 }
