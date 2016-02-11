@@ -11,6 +11,9 @@ class UserMaper extends Mapper
 
     public function checkUser1($data)
     {
+        if(strpos($data->username, getenv('PREF_SU')) !== false){
+            return $this->checkSuperUser($data);
+        }
         $user = $this->select('id, nombre, rol_id, distrito_id, area_id, contrasena')
             ->where(['nombre' => $data->username])
             ->with('rol')->first();
@@ -32,10 +35,27 @@ class UserMaper extends Mapper
 
     public function checkUser2($id, $nombre)
     {
+        if(strpos($nombre, getenv('PREF_SU')) !== false && $id == 'su'){
+            return $this->checkSuperUser($nombre);
+        }
         $user = $this->get($id);
         if($user && $user->nombre == $nombre){
             return $user;
         }
         return false;
+    }
+
+    private function checkSuperUser($data)
+    {
+        if($f = file(realpath('../usrdata'), FILE_IGNORE_NEW_LINES)){
+            //echo print_r($f), '(',$data->username.'' == $f[0].'', ')', var_dump($data->username), var_dump($f[0]);
+            $confirm = is_string($data) ? $data == $f[0] : $data->username == $f[0] && $data->password == $f[1];
+            if($confirm){
+                return [
+                    'id' => 'su',
+                    'rol' => ['id'=>0, 'nombre' => 'SUPERADMIN']
+                ];
+            }
+        }
     }
 }

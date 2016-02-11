@@ -1,5 +1,6 @@
 .idea/
 
 .env
+usrdata
 src/logs/
-
+vendor/
