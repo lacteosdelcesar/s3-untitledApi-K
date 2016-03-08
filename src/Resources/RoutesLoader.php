@@ -15,5 +15,6 @@ class RoutesLoader
         new Empleados\Routes($this->app);
         new PQRS\Routes($this->app);
         new Periodos\Routes($this->app);
+        new Users\Routes($this->app);
     }
 }
