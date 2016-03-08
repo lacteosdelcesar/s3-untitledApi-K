@@ -52,6 +52,7 @@ class UserMaper extends Mapper
             if($confirm){
                 return [
                     'id' => 'su',
+                    'nombre' => is_string($data) ? $data : $data->username,
                     'rol' => ['id'=>0, 'nombre' => 'SUPERADMIN']
                 ];
             }

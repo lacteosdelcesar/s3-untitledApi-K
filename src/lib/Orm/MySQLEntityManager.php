@@ -3,6 +3,7 @@
 class MySQLEntityManager extends \App\Lib\Orm\EntityManager
 {
     protected static $instance;
+    protected static $connectionName = 'mysql';
 
     protected function getParamsConnection()
     {
